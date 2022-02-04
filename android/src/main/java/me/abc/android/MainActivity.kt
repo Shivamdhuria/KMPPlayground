@@ -2,8 +2,9 @@ package me.abc.android
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import me.abc.library.Greeting
+//import me.abc.library.Greeting
 import android.widget.TextView
+import me.abc.library.Greeting
 
 fun greet(): String {
     return Greeting().greeting()

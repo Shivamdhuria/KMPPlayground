@@ -11,19 +11,12 @@ repositories {
     jcenter()
 }
 
-dependencies {
-    implementation(project(":library"))
-    implementation("com.google.android.material:material:1.2.1")
-    implementation("androidx.appcompat:appcompat:1.2.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.2")
-}
-
 android {
-    compileSdkVersion(29)
+    compileSdk = 31
     defaultConfig {
         applicationId = "me.abc.android"
-        minSdkVersion(24)
-        targetSdkVersion(29)
+        minSdk = 26
+        targetSdk = 31
         versionCode = 1
         versionName = "1.0"
     }
@@ -36,4 +29,11 @@ android {
             isMinifyEnabled = false
         }
     }
+}
+
+dependencies {
+    implementation(project(":library"))
+    implementation("com.google.android.material:material:1.2.1")
+    implementation("androidx.appcompat:appcompat:1.2.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.0.2")
 }

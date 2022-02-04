@@ -1,6 +1,6 @@
 plugins {
     kotlin("multiplatform")
-    id("com.android.application")
+    id("com.android.library")
     id("kotlin-android-extensions")
 }
 
@@ -89,17 +89,11 @@ kotlin {
         val iosX64Test by getting
     }
 }
-
 android {
-    compileSdkVersion(29)
+    compileSdk = 31
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
-        applicationId = "me.abc.library"
-        minSdkVersion(24)
-        targetSdkVersion(29)
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        minSdk = 26
+        targetSdk = 31
     }
 }
