@@ -1,6 +1,10 @@
 plugins {
     kotlin("multiplatform")
+    kotlin("plugin.serialization")
+
     id("com.android.library")
+    id("com.squareup.sqldelight")
+
     id("kotlin-android-extensions")
 }
 
@@ -56,8 +60,24 @@ kotlin {
             }
         }
     }
+
+    val ktorVersion = "1.6.7"
+    val serializationVersion = "1.3.2"
+    val sqlDelightVersion: String by project
+    val coroutinesVersion = "1.3.9-native-mt"
+
     sourceSets {
-        val commonMain by getting
+        val commonMain by getting {
+            dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
+                implementation("io.ktor:ktor-client-core:$ktorVersion")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:$serializationVersion")
+                implementation("io.ktor:ktor-client-serialization:$ktorVersion")
+                implementation("com.squareup.sqldelight:runtime:$sqlDelightVersion")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.1")
+
+            }
+        }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
@@ -74,6 +94,8 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation("com.google.android.material:material:1.2.1")
+                implementation("io.ktor:ktor-client-android:$ktorVersion")
+                implementation("com.squareup.sqldelight:android-driver:$sqlDelightVersion")
             }
         }
         val androidTest by getting {
@@ -88,6 +110,11 @@ kotlin {
         val iosArm64Main by getting
         //val iosSimulatorArm64Main by getting
         val iosMain by creating {
+            dependencies {
+                implementation("io.ktor:ktor-client-ios:$ktorVersion")
+                implementation("com.squareup.sqldelight:native-driver:$sqlDelightVersion")
+            }
+
             dependsOn(commonMain)
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
