@@ -8,7 +8,7 @@
 
     val kotlinVersion = "1.6.10"
     val sqlDelightVersion: String by project
-    val hilt_version = "2.33-beta"
+    val hilt_version = "2.38.1"
 
     dependencies {
         classpath("com.android.tools.build:gradle:7.0.0")
@@ -27,6 +27,7 @@ allprojects {
         google()
         mavenCentral()
     }
+
 }
 tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
