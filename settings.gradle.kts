@@ -11,5 +11,5 @@ rootProject.name = "kmp"
 
 
 include(":library")
-include(":android")
+include(":android", ":compose-desktop", ":desktop")
 

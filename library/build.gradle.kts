@@ -11,7 +11,7 @@ version = "1.0-SNAPSHOT"
 
 kotlin {
     android()
-
+    jvm()
     val iosTarget: (String, org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget.() -> Unit) -> org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget = when {
         System.getenv("SDK_NAME")?.startsWith("iphoneos") == true -> ::iosArm64
         System.getenv("NATIVE_ARCH")?.startsWith("arm") == true -> ::iosSimulatorArm64 // available to KT 1.5.30
@@ -45,6 +45,12 @@ kotlin {
         sourceSets["iOSMain"].dependencies {
             implementation("io.ktor:ktor-client-ios:$ktorVersion")
             implementation("com.squareup.sqldelight:native-driver:$sqlDelightVersion")
+        }
+
+        sourceSets["jvmMain"].dependencies {
+            implementation(Deps.Ktor.clientJava)
+            implementation(Deps.SqlDelight.sqliteDriver)
+            implementation(Deps.Log.slf4j)
         }
     }
 }
