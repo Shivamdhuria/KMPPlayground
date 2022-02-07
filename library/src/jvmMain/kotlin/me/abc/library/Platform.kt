@@ -1,6 +1,5 @@
 package me.abc.library
 
 actual class Platform actual constructor() {
-    actual val platform: String
-        get() = TODO("Not yet implemented")
+    actual val platform: String = ""
 }
