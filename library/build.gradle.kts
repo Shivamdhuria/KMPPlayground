@@ -12,54 +12,25 @@ group = "me.abc"
 version = "1.0-SNAPSHOT"
 
 kotlin {
-//    jvm {
-//        compilations.all {
-//            kotlinOptions.jvmTarget = "1.8"
+    android()
+
+//    listOf(
+//        iosX64(),
+//        iosArm64(),
+//        //iosSimulatorArm64() sure all ios dependencies support this target
+//    ).forEach {
+//        it.binaries.framework {
+//            baseName = "library"
 //        }
-//        testRuns["test"].executionTask.configure {
-//            useJUnitPlatform()
-//        }
-//    }
-//    js(BOTH) {
-//        browser {
-//            commonWebpackConfig {
-//                cssSupport.enabled = true
-//            }
-//        }
-//    }
-//    val hostOs = System.getProperty("os.name")
-//    val isMingwX64 = hostOs.startsWith("Windows")
-//    val nativeTarget = when {
-//        hostOs == "Mac OS X" -> macosX64("native")
-//        hostOs == "Linux" -> linuxX64("native")
-//        isMingwX64 -> mingwX64("native")
-//        else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
 //    }
 
-    
-    android()
-//    macosX64()
-    iosArm32 {
-        binaries {
-            framework {
-                baseName = "library"
-            }
-        }
+    val iosTarget: (String, org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget.() -> Unit) -> org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget = when {
+        System.getenv("SDK_NAME")?.startsWith("iphoneos") == true -> ::iosArm64
+        System.getenv("NATIVE_ARCH")?.startsWith("arm") == true -> ::iosSimulatorArm64 // available to KT 1.5.30
+        else -> ::iosX64
     }
-    iosArm64 {
-        binaries {
-            framework {
-                baseName = "library"
-            }
-        }
-    }
-    iosX64 {
-        binaries {
-            framework {
-                baseName = "library"
-            }
-        }
-    }
+    iosTarget("iOS") {}
+
 
     val ktorVersion = "1.6.7"
     val serializationVersion = "1.3.2"
@@ -83,13 +54,6 @@ kotlin {
                 implementation(kotlin("test"))
             }
         }
-//        val jvmMain by getting
-//        val jvmTest by getting
-//        val jsMain by getting
-//        val jsTest by getting
-//        val nativeMain by getting
-//        val nativeTest by getting
-
 
         val androidMain by getting {
             dependencies {
@@ -103,34 +67,42 @@ kotlin {
                 implementation("junit:junit:4.13")
             }
         }
-//        val macosX64Main by getting
-//        val macosX64Test by getting
 
-        val iosX64Main by getting
-        val iosArm64Main by getting
+//        val iosX64Main by getting
+//        val iosArm64Main by getting
         //val iosSimulatorArm64Main by getting
-        val iosMain by creating {
-            dependencies {
-                implementation("io.ktor:ktor-client-ios:$ktorVersion")
-                implementation("com.squareup.sqldelight:native-driver:$sqlDelightVersion")
-            }
+//        val iosMain by getting {
+//
+//            dependencies {
+//                implementation("io.ktor:ktor-client-ios:$ktorVersion")
+//                implementation("com.squareup.sqldelight:native-driver:$sqlDelightVersion")
+//            }
+//            //iosSimulatorArm64Main.dependsOn(this)
+//        }
 
-            dependsOn(commonMain)
-            iosX64Main.dependsOn(this)
-            iosArm64Main.dependsOn(this)
-            //iosSimulatorArm64Main.dependsOn(this)
+        sourceSets["iOSMain"].dependencies {
+            implementation("io.ktor:ktor-client-ios:$ktorVersion")
+            implementation("com.squareup.sqldelight:native-driver:$sqlDelightVersion")
         }
-        val iosX64Test by getting
-        val iosArm64Test by getting
-        //val iosSimulatorArm64Test by getting
-        val iosTest by creating {
-            dependsOn(commonTest)
-            iosX64Test.dependsOn(this)
-            iosArm64Test.dependsOn(this)
-            //iosSimulatorArm64Test.dependsOn(this)
-        }
+//        val iosX64Test by getting
+//        val iosArm64Test by getting
+//        //val iosSimulatorArm64Test by getting
+//        val iosTest by creating {
+//            dependsOn(commonTest)
+//            iosX64Test.dependsOn(this)
+//            iosArm64Test.dependsOn(this)
+//            //iosSimulatorArm64Test.dependsOn(this)
+//        }
     }
 }
+
+sqldelight {
+    database("AppDatabase") {
+        packageName = "com.abc.library.shared.cache"
+    }
+}
+
+
 android {
     compileSdk = 31
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
