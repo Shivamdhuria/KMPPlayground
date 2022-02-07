@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="android/src/main/res/layout/activity_main.xml" value="0.14427083333333332" />
+        <entry key="android/src/main/res/layout/item_launch.xml" value="0.13125" />
       </map>
     </option>
   </component>
