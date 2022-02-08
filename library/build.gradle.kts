@@ -2,6 +2,8 @@ plugins {
     kotlin("multiplatform")
     kotlin("plugin.serialization")
     id("com.android.library")
+    id("org.jetbrains.kotlin.native.cocoapods")
+
     id("com.squareup.sqldelight")
     id("com.rickclephas.kmp.nativecoroutines")
     id("kotlin-android-extensions")
@@ -13,6 +15,12 @@ version = "1.0-SNAPSHOT"
 kotlin {
     android()
     jvm()
+
+    cocoapods {
+        // Configure fields required by CocoaPods.
+        summary = "PeopleInSpace"
+        homepage = "https://github.com/joreilly/PeopleInSpace"
+    }
 
     val iosTarget: (String, org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget.() -> Unit) -> org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget = when {
         System.getenv("SDK_NAME")?.startsWith("iphoneos") == true -> ::iosArm64
@@ -111,3 +119,10 @@ android {
         targetSdk = 31
     }
 }
+//multiplatformSwiftPackage {
+//    packageName("PeopleInSpace")
+//    swiftToolsVersion("5.3")
+//    targetPlatforms {
+//        iOS { v("13") }
+//    }
+//}
