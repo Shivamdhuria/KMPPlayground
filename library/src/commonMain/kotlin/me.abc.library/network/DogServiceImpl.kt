@@ -12,9 +12,11 @@ class DogServiceImpl: DogService {
 
     private val client: HttpClient = HttpClient() {
         install(JsonFeature) {
-            serializer = KotlinxSerializer(kotlinx.serialization.json.Json {
-                ignoreUnknownKeys = true // if the server sends extra fields, ignore them
-            })
+            serializer = KotlinxSerializer(
+                json = kotlinx.serialization.json.Json {
+                    ignoreUnknownKeys = true
+                }
+            )
         }
     }
 
