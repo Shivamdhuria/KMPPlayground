@@ -5,7 +5,7 @@ plugins {
     id("org.jetbrains.kotlin.native.cocoapods")
 
     id("com.squareup.sqldelight")
-    id("com.rickclephas.kmp.nativecoroutines")
+//    id("com.rickclephas.kmp.nativecoroutines")
     id("kotlin-android-extensions")
 }
 
