@@ -1,5 +1,6 @@
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Text
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -12,7 +13,7 @@ import androidx.compose.ui.window.rememberWindowState
 fun main() = application {
     val windowState = rememberWindowState()
 
-
+//val recipe = List<Dog>()
 
 
     LaunchedEffect(true) {
@@ -29,7 +30,7 @@ fun main() = application {
         Row(Modifier.fillMaxSize()) {
 
             Box(Modifier.width(250.dp).fillMaxHeight().background(color = Color.LightGray)) {
-
+                Text("hdisofhiwofhiowfhsidofhsiodf")
             }
 
             Spacer(modifier = Modifier.width(1.dp).fillMaxHeight())
