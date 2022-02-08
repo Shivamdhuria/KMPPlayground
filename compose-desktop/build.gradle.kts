@@ -14,7 +14,7 @@ repositories {
 
 dependencies {
     implementation(compose.desktop.currentOs)
-    implementation(project(":library"))
+    implementation(project(":common"))
 }
 
 tasks.withType<KotlinCompile> {

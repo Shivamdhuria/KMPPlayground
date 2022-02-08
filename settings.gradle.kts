@@ -10,7 +10,7 @@ pluginManagement {
 rootProject.name = "kmp"
 
 
-include(":library")
+include(":common")
 include(":android")
 include(":compose-desktop")
 

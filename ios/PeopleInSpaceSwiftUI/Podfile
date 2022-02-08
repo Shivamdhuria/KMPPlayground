@@ -1,0 +1,4 @@
+
+target 'PeopleInSpaceSwiftUI' do
+    pod 'common', :path => '../../common'
+end
