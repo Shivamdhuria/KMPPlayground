@@ -21,7 +21,7 @@ class GetDogs(private val recipeService: DogService, private val dtoMapper: DogD
         }
     }.asCommonFlow()
 
-    private suspend fun getDogsFromNetwork(): List<Dog> {
+     suspend fun getDogsFromNetwork(): List<Dog> {
         val dogDtos = recipeService.getDogs().message
         return dtoMapper.toDomainList(dogDtos)
     }
